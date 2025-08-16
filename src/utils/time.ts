@@ -103,6 +103,14 @@ export async function getSuggestedCocktail(city: City, _currentTime: Date): Prom
     Thailand: ['Piña Colada', 'Daiquiri', 'Hurricane'], // Using tropical classics
     India: ['Gin Tonic', 'Tom Collins', 'Gimlet'], // Using British colonial era classics
     UAE: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    'Saudi Arabia': ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Iran: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Kuwait: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Qatar: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Afghanistan: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Bangladesh: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Brunei: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Pakistan: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
     Israel: ['Martini', 'Gin Tonic', 'Tom Collins'], // Using Mediterranean appropriate classics
 
     // Africa
@@ -111,6 +119,9 @@ export async function getSuggestedCocktail(city: City, _currentTime: Date): Prom
     Nigeria: ['Gin Tonic', 'Martini', 'Tom Collins'], // Using British colonial era classics
     Morocco: ['Gin Tonic', 'Martini', 'Tom Collins'], // Using French colonial era classics
     Kenya: ['Gin Tonic', 'Martini', 'Tom Collins'], // Using British colonial era classics
+    Libya: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Sudan: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
+    Yemen: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options
 
     // Oceania
     Australia: ['Espresso Martini', 'Dark and Stormy'],
@@ -118,6 +129,7 @@ export async function getSuggestedCocktail(city: City, _currentTime: Date): Prom
     Fiji: ['Piña Colada', 'Hurricane', 'Bahama Mama'], // Using tropical classics
     Samoa: ['Piña Colada', 'Hurricane', 'Bahama Mama'], // Using tropical classics
     Tonga: ['Piña Colada', 'Hurricane', 'Bahama Mama'], // Using tropical classics
+    Maldives: ['Fruit Punch', 'Lemonade', 'Iced Tea'], // Non-alcoholic options (restricted outside resorts)
   }
 
   // Fallback classics that are verified to exist in TheCocktailDB
@@ -127,4 +139,29 @@ export async function getSuggestedCocktail(city: City, _currentTime: Date): Prom
   const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)]
 
   return await fetchCocktailByName(randomSuggestion)
+}
+
+// Countries/regions with alcohol restrictions or bans
+export const ALCOHOL_RESTRICTED_COUNTRIES = {
+  UAE: 'United Arab Emirates has strict alcohol regulations. Non-alcoholic beverages are suggested.',
+  'Saudi Arabia': 'Saudi Arabia has a complete alcohol ban. Only non-alcoholic beverages are available.',
+  Iran: 'Iran has a complete alcohol ban. Only non-alcoholic beverages are available.',
+  Kuwait: 'Kuwait has a complete alcohol ban. Only non-alcoholic beverages are available.',
+  Qatar: 'Qatar has strict alcohol regulations with limited availability. Non-alcoholic beverages are suggested.',
+  Afghanistan: 'Afghanistan has a complete alcohol ban. Only non-alcoholic beverages are available.',
+  Bangladesh: 'Bangladesh has strict alcohol regulations. Non-alcoholic beverages are suggested.',
+  Brunei: 'Brunei has strict alcohol regulations. Non-alcoholic beverages are suggested.',
+  Libya: 'Libya has strict alcohol regulations. Non-alcoholic beverages are suggested.',
+  Maldives: 'Maldives has alcohol restrictions outside of resorts. Non-alcoholic beverages are suggested.',
+  Pakistan: 'Pakistan has strict alcohol regulations for non-Muslims. Non-alcoholic beverages are suggested.',
+  Sudan: 'Sudan has strict alcohol regulations. Non-alcoholic beverages are suggested.',
+  Yemen: 'Yemen has strict alcohol regulations. Non-alcoholic beverages are suggested.',
+}
+
+export function hasAlcoholRestrictions(country: string): boolean {
+  return country in ALCOHOL_RESTRICTED_COUNTRIES
+}
+
+export function getAlcoholRestrictionInfo(country: string): string | null {
+  return ALCOHOL_RESTRICTED_COUNTRIES[country as keyof typeof ALCOHOL_RESTRICTED_COUNTRIES] || null
 }

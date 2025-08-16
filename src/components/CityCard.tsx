@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { MapPin, Wine } from 'lucide-react'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { MapPin, Wine, Info } from 'lucide-react'
 import type { CityTime, Cocktail } from '../types'
-import { getSuggestedCocktail } from '../utils/time'
+import { getSuggestedCocktail, hasAlcoholRestrictions, getAlcoholRestrictionInfo } from '../utils/time'
 
 interface CityCardProps {
   cityTime: CityTime
@@ -11,6 +12,9 @@ interface CityCardProps {
 export function CityCard({ cityTime }: CityCardProps) {
   const [cocktail, setCocktail] = useState<Cocktail | null>(null)
   const [loadingCocktail, setLoadingCocktail] = useState(false)
+
+  const hasRestrictions = hasAlcoholRestrictions(cityTime.city.country)
+  const restrictionInfo = getAlcoholRestrictionInfo(cityTime.city.country)
 
   useEffect(() => {
     const fetchCocktail = async () => {
@@ -51,7 +55,19 @@ export function CityCard({ cityTime }: CityCardProps) {
       <CardContent className='space-y-4'>
         <div className='flex items-center gap-2 mb-3'>
           <Wine className='h-4 w-4 text-accent' />
-          <span className='font-semibold text-sm text-muted-foreground'>Suggested Cocktail</span>
+          <span className='font-semibold text-sm text-muted-foreground'>
+            {hasRestrictions ? 'Suggested Beverage' : 'Suggested Cocktail'}
+          </span>
+          {hasRestrictions && restrictionInfo && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className='h-3 w-3 text-muted-foreground cursor-help' />
+              </TooltipTrigger>
+              <TooltipContent className='max-w-xs'>
+                <p>{restrictionInfo}</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
         </div>
 
         {loadingCocktail ? (
