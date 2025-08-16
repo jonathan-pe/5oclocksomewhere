@@ -7,9 +7,10 @@ import { getSuggestedCocktail, hasAlcoholRestrictions, getAlcoholRestrictionInfo
 
 interface CityCardProps {
   cityTime: CityTime
+  onCocktailClick?: (cocktail: Cocktail) => void
 }
 
-export function CityCard({ cityTime }: CityCardProps) {
+export function CityCard({ cityTime, onCocktailClick }: CityCardProps) {
   const [cocktail, setCocktail] = useState<Cocktail | null>(null)
   const [loadingCocktail, setLoadingCocktail] = useState(false)
 
@@ -34,10 +35,10 @@ export function CityCard({ cityTime }: CityCardProps) {
 
   const getIngredients = (cocktail: Cocktail): string[] => {
     const ingredients: string[] = []
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 15; i++) {
       const ingredient = cocktail[`strIngredient${i}` as keyof Cocktail]
       const measure = cocktail[`strMeasure${i}` as keyof Cocktail]
-      if (ingredient) {
+      if (ingredient && ingredient.trim()) {
         ingredients.push(measure ? `${measure} ${ingredient}` : ingredient)
       }
     }
@@ -79,7 +80,12 @@ export function CityCard({ cityTime }: CityCardProps) {
             </div>
           </div>
         ) : cocktail ? (
-          <div className='flex gap-3'>
+          <div
+            className={`flex gap-3 ${
+              onCocktailClick ? 'cursor-pointer hover:bg-accent/20 rounded-lg p-2 -m-2 transition-colors' : ''
+            }`}
+            onClick={() => onCocktailClick?.(cocktail)}
+          >
             <img
               src={cocktail.strDrinkThumb}
               alt={cocktail.strDrink}

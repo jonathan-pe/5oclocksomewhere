@@ -4,15 +4,17 @@ import { Button } from '@/components/ui/button'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { CityCard } from './components/CityCard'
+import { BeverageDetails } from './components/BeverageDetails'
 import { CITIES } from './data/cities'
 import { getCityTime } from './utils/time'
-import type { CityTime } from './types'
+import type { CityTime, Cocktail } from './types'
 
 function App() {
   const [cityTimes, setCityTimes] = useState<CityTime[]>([])
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date())
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [currentTime, setCurrentTime] = useState<Date>(new Date())
+  const [selectedCocktail, setSelectedCocktail] = useState<Cocktail | null>(null)
 
   const updateTimes = () => {
     setIsRefreshing(true)
@@ -51,6 +53,23 @@ function App() {
   }, [])
 
   const fiveOClockCities = cityTimes.filter((ct) => ct.isFiveOClock)
+
+  const handleCocktailClick = (cocktail: Cocktail) => {
+    setSelectedCocktail(cocktail)
+  }
+
+  const handleBackToMain = () => {
+    setSelectedCocktail(null)
+  }
+
+  // If a cocktail is selected, show the details page
+  if (selectedCocktail) {
+    return (
+      <TooltipProvider>
+        <BeverageDetails cocktail={selectedCocktail} onBack={handleBackToMain} />
+      </TooltipProvider>
+    )
+  }
 
   // Format current time to show 5 o'clock with seconds
   const formatFiveOClockTime = (date: Date) => {
@@ -113,7 +132,7 @@ function App() {
             <div className='mb-12'>
               <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {fiveOClockCities.map((cityTime) => (
-                  <CityCard key={cityTime.city.name} cityTime={cityTime} />
+                  <CityCard key={cityTime.city.name} cityTime={cityTime} onCocktailClick={handleCocktailClick} />
                 ))}
               </div>
             </div>
