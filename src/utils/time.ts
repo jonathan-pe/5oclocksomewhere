@@ -47,7 +47,9 @@ export function getCityTime(city: City): CityTime {
 
 export async function fetchRandomCocktail(): Promise<Cocktail | null> {
   try {
-    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+    const response = await fetch(
+      `https://www.thecocktaildb.com/api/json/v2/${import.meta.env.VITE_COCKTAIL_DB_API_KEY}/random.php`
+    )
     const data = await response.json()
     return data.drinks?.[0] || null
   } catch (error) {
@@ -58,7 +60,11 @@ export async function fetchRandomCocktail(): Promise<Cocktail | null> {
 
 export async function fetchCocktailByName(name: string): Promise<Cocktail | null> {
   try {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(name)}`)
+    const response = await fetch(
+      `https://www.thecocktaildb.com/api/json/v2/${
+        import.meta.env.VITE_COCKTAIL_DB_API_KEY
+      }/search.php?s=${encodeURIComponent(name)}`
+    )
     const data = await response.json()
     return data.drinks?.[0] || null
   } catch (error) {
