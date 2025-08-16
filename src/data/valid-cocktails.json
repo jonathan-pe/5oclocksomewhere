@@ -1,0 +1,90 @@
+{
+  "USA": [
+    "Manhattan",
+    "Old Fashioned",
+    "Margarita",
+    "Mojito",
+    "Whiskey Sour",
+    "Cosmopolitan",
+    "Mai Tai"
+  ],
+  "Canada": [],
+  "Mexico": [
+    "Margarita",
+    "Paloma",
+    "Michelada",
+    "Tequila Sunrise"
+  ],
+  "Brazil": [
+    "Caipirinha",
+    "Passion Fruit Martini"
+  ],
+  "Argentina": [
+    "Aperol Spritz"
+  ],
+  "Peru": [
+    "Pisco Sour"
+  ],
+  "Colombia": [],
+  "UK": [
+    "Gin and Tonic",
+    "Whiskey Sour",
+    "Dark and Stormy",
+    "Bramble"
+  ],
+  "France": [
+    "French 75",
+    "Kir Royale",
+    "Sidecar",
+    "Champagne Cocktail",
+    "French Martini",
+    "Boulevardier"
+  ],
+  "Germany": [],
+  "Italy": [
+    "Negroni",
+    "Aperol Spritz",
+    "Bellini",
+    "Americano"
+  ],
+  "Spain": [
+    "Sangria"
+  ],
+  "Netherlands": [],
+  "Sweden": [],
+  "Czech Republic": [],
+  "Ireland": [
+    "Irish Coffee"
+  ],
+  "Austria": [],
+  "Turkey": [],
+  "Japan": [],
+  "South Korea": [],
+  "China": [],
+  "Hong Kong": [],
+  "Singapore": [
+    "Singapore Sling",
+    "Gin Sling"
+  ],
+  "Thailand": [],
+  "India": [],
+  "UAE": [
+    "Fruit Punch",
+    "Lemonade",
+    "Iced Tea"
+  ],
+  "Israel": [],
+  "Egypt": [],
+  "South Africa": [],
+  "Nigeria": [],
+  "Morocco": [],
+  "Kenya": [],
+  "Australia": [
+    "Espresso Martini",
+    "Dark and Stormy"
+  ],
+  "New Zealand": [],
+  "Fiji": [],
+  "Samoa": [],
+  "Tonga": []
+}
